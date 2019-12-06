@@ -10,7 +10,7 @@ References:
  - https://flask-restful.readthedocs.io/en/latest/index.html
 '''
 
-# Instantiates flask app and creates api object for this app
+# Initiates flask app and creates api object for this app
 app = Flask(__name__)
 api = Api(app)
 
