@@ -3,7 +3,7 @@ from flask_restful import Api, Resource, reqparse
 from datetime import datetime
 
 '''
-Author: Noah La Fon
+Author: La Fon, Noah
 Date Created: Dec 6, 2019
 References:
  - https://codeburst.io/this-is-how-easy-it-is-to-create-a-rest-api-8a25122ab1f3
@@ -34,13 +34,13 @@ a database this won't be needed.
 commentsQueue = []
 
 '''
-TODO: John connects whatever we develope here.
-This is just a placeholder and we will likely
-need to import the python method we develope.
+TODO: We connect whatever we develope here.
+This is just a placeholder and we will
+need to import the method we develope.
 '''
-def JohnsStuff(commentID):
-    # Does Johns stuff...
-    print("Doing Johns stuff on comment:", commentID)
+def processComment(commentID):
+    # Does backend stuff...
+    print("Doing backend stuff on comment:", commentID)
     return commentID
 
 '''
@@ -89,7 +89,7 @@ class CommentAPI(Resource):
 
         # TODO: Make this spawn a seccond process rather than needing
         # to wait for results here.
-        JohnsStuff(newID)
+        processComment(newID)
 
         # Returns new comment object
         # Front end can now extract commnetID and
