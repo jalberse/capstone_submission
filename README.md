@@ -20,3 +20,6 @@ This will make the API calls possible on the local host port 5000 (http://127.0.
 
 TODO: Add instructions for GET and POST request info once the format is decided
 TODO: Add instructions to make REST API available over the internet.
+
+### Testing REST API
+TODO: Add the testing info from Insomnia either here or somewhere else easily accessible.
