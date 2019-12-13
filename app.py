@@ -30,6 +30,8 @@ TODO: Create script to delete old comment objects when
 they have been in the queue for more than a given date
 so that they don't pile up in memory. If we decide to use
 a database this won't be needed.
+
+TODO: Add documentation for API requests.
 '''
 commentsQueue = []
 
@@ -67,6 +69,8 @@ class CommentAPI(Resource):
         so you can visually see what kind of request it is.
     '''
     def post(self, commentID):
+        # TODO: Test to see if we need to add handling for bad requests
+
         # Parses comment text from request
         parser = reqparse.RequestParser()
         parser.add_argument("text")
@@ -74,6 +78,10 @@ class CommentAPI(Resource):
 
         # Generate new comment ID
         newID = getNewID()
+
+        # TODO: Change time format to ISO 8601
+        # TODO: Change time zone to UTC
+        # TODO: Add time stamp for last time object was updated
 
         # Fills out new comment object
         commentObject = {
@@ -88,7 +96,7 @@ class CommentAPI(Resource):
         commentsQueue.append(commentObject)
 
         # TODO: Make this spawn a seccond process rather than needing
-        # to wait for results here.
+        # to wait for results here?
         processComment(newID)
 
         # Returns new comment object
