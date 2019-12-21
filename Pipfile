@@ -9,6 +9,8 @@ verify_ssl = true
 flask = "*"
 flask-restful = "*"
 nltk = "*"
+vadersentiment = "*"
+requests = "*"
 
 [requires]
 python_version = "3.7"

@@ -3,6 +3,9 @@ from nltk.corpus import webtext
 from nltk.corpus import gutenberg as gb
 from nltk.tokenize import RegexpTokenizer
 
+def get_emoji_response(comment):
+    pass
+
 if __name__ == "__main__":
     '''
     VERY basic text prediction using ngrams
