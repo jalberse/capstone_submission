@@ -1,0 +1,31 @@
+{
+    "very_positive" : [
+        "Happy to hear!",
+        "Thank you!!",
+        "We appreciate it!",
+        "We're happy you're happy!",
+        "Happy to help!"
+    ],
+    "positive" : [
+        "Thank you!",
+        "Glad to hear it!",
+        "Happy to help!",
+        "That's nice to hear!"
+    ],
+    "neutral" : [
+        "Thanks!",
+        "Thank you for the feedback!",
+        "Okay!",
+        "We hear you!"
+    ],
+    "negative" : [
+        "Sorry to hear that! How can we help?",
+        "How can we be of assistance?",
+        "How can we improve next time?"
+    ],
+    "very_negative" : [
+        "This is concerning - please reach out to us.",
+        "Thank you for contacting us. Please let us know what we can do to help.",
+        "Hi! We're sorry to hear this. Please reach out to our customer service team to let us know how we can resolve this."
+    ]
+}

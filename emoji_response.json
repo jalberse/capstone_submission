@@ -1,0 +1,7 @@
+{
+    "very_positive": ["\ud83d\udc95", "\ud83d\udc9c", "\ud83d\udcaf", "\ud83e\udd73", "\ud83e\udd70"], 
+    "positive": ["\ud83d\ude0e", "\ud83d\ude3a", "\ud83d\ude0f", "\ud83d\ude07", "\ud83e\udd17"], 
+    "neutral": ["\ud83d\ude42", "\ud83d\udc4c", "\u270c", "\u263a"], 
+    "negative": ["\ud83d\ude1f", "\ud83d\ude15", "\ud83d\ude14", "\ud83d\ude2c", "\ud83d\ude43", "\ud83d\ude05"], 
+    "very_negative": ["\ud83d\ude13", "\ud83d\ude20", "\ud83d\ude28", "\ud83e\udd15"]
+}
