@@ -2,12 +2,20 @@ from flask import Flask
 from flask_restful import Api, Resource, reqparse
 from datetime import datetime
 
+from quick_response import TextAnalyzer
+
 '''
 Author: La Fon, Noah
 Date Created: Dec 6, 2019
 References:
  - https://codeburst.io/this-is-how-easy-it-is-to-create-a-rest-api-8a25122ab1f3
  - https://flask-restful.readthedocs.io/en/latest/index.html
+
+ TODO:
+    Make different endpoints for different types of requests:
+        emoji_response
+        text_response
+        predictive_text
 '''
 
 # Initiates flask app and creates api object for this app
@@ -33,16 +41,16 @@ a database this won't be needed.
 
 TODO: Add documentation for API requests.
 '''
-commentsQueue = []
+commentsQueue = {}
 
 '''
 TODO: We connect whatever we develope here.
 This is just a placeholder and we will
 need to import the method we develope.
 '''
+analyzer = TextAnalyzer()
 def processComment(commentID):
-    # Does backend stuff...
-    print("Doing backend stuff on comment:", commentID)
+    commentsQueue[commentID]["result"] = analyzer.get_text_response(commentsQueue[commentID]["text"])
     return commentID
 
 '''
@@ -93,7 +101,7 @@ class CommentAPI(Resource):
         }
 
         # Adds comment to queue for processing
-        commentsQueue.append(commentObject)
+        commentsQueue[newID] = commentObject
 
         # TODO: Make this spawn a seccond process rather than needing
         # to wait for results here?
@@ -112,14 +120,13 @@ class CommentAPI(Resource):
     def get(self, commentID):
         # Returns the comment object with the given
         # commentID if it exists.
-        for commentObject in commentsQueue:
-            if(commentID == commentObject["ID"]):
-                # ID found, return with code 200 (OK status)
-                return commentObject, 200
-
-        # If a comment could not be found with the given ID,
-        # throw a 404 error.
-        return "Comment not found", 404
+        try:
+            # ID found, return with code 200 (OK status)
+            return commentsQueue[commentID], 200
+        except KeyError:
+            # If a comment could not be found with the given ID,
+            # throw a 404 error.
+            return "Comment not found", 404
 
 # Adds CommentAPI to flask app under path /comment/commentID
 api.add_resource(CommentAPI, "/comment/<string:commentID>")
