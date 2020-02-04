@@ -11,6 +11,7 @@ flask-restful = "*"
 nltk = "*"
 vadersentiment = "*"
 requests = "*"
+emoji = "*"
 
 [requires]
 python_version = "3.7"
