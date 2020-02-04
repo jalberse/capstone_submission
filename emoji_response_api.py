@@ -3,12 +3,17 @@
 #==========================================================================
 # PURPOSE:
 #   An emoji response API to provide REST access to our emoji response
+#   system
 #
 # NOTES:
 #   Only tested on Python3.7
 #
+# REFERENCES:
+#   https://codeburst.io/this-is-how-easy-it-is-to-create-a-rest-api-8a25122ab1f3
+#   https://flask-restful.readthedocs.io/en/latest/index.html
+#
 # USAGE:
-#   $ python3.7 emojiresponse.py
+#   $ python3.7 emoji_response_api.py
 #
 #   Upon running this command in the appropriate environment, the API will
 #   be made available on the default port of 5000.
@@ -62,7 +67,7 @@ class EmojiResponseAPI(Resource):
         commentQueue.addComment(commentObject)
 
         # Processes text and sets response
-        commentObject["response"] = analyzer.get_text_response(args["text"])
+        commentObject["response"] = analyzer.get_emoji_response(args["text"])
 
         # Returns new comment object
         # with code 201 (object created code)
