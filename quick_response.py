@@ -7,10 +7,6 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 # VADER sentiment analysis is licensed under the MIT license
 # https://github.com/cjhutto/vaderSentiment
 
-# TODO: Can't detect sentiment of emojis by themselves. 
-#       Solution: regex to replace emojis by their names
-#       this will at least give it a nonzero sentiment
-
 class TextAnalyzer:
     def __init__(self):
         self.vader = SentimentIntensityAnalyzer()
