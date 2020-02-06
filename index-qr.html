@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <title>Tailwind - Comment UI</title>
+  <link rel="shortcut icon" href="">
+  <link rel="icon" href="">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Wellfleet">
+<!--[if lt IE 9]>
+  <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+<script src="script.js"></script>
+
+</head>
+<br>
+<h1> <center>Tailwind - Quick Response </center></h1>
+  <div id="w">
+    <div id="container">
+      <ul id="comments">
+				<li class="cmmnt">
+				  <div class="avatar"><a href="javascript:void(0);"><img src="images/tailwindpp.png" width="55" height="55" alt="Tailwind"></a></div>
+				  <div class="cmmnt-content">
+				    <header><a href="javascript:void(0);" class="userlink">Tailwind</a> - <span class="pubdate">posted 1 week ago</span></header>
+				    <p>If you're struggling with your Pin design, we've got something that can help! 🔥Snag your copy of the Perfect Pinterest Pins Toolkit HERE: <a href="https://learn.tailwindapp.com/pinterest-toolkit-v2/">https://learn.tailwindapp.com/pinterest-toolkit-v2/</a></p>
+            </div>
+
+				  <ul class="replies">
+				    <li class="cmmnt">
+				      <div class="avatar"><a href="javascript:void(0);"><img src="images/amypp.jpg" width="55" height="55" alt="Amy's Avatar"></a></div>
+				      <div class="cmmnt-content">
+				      <header><a href="javascript:void(0);" class="userlink">Amy Le</a> - <span class="pubdate">posted 1 day ago</span></header>
+				      <p>When I try to sign up, it prompts me for a password! I never recieved a password.</p>
+              <div class="comment-actions">
+                <a href="#">Reply</a>
+              </div></div>
+				    </li>
+				</li>
+
+          <ul class="replies">
+            <li class="cmmnt">
+              <div class="avatar"><a href="javascript:void(0);"><img src="images/lisapp.jpg" width="55" height="55" alt="lisa's avatar"></a></div>
+              <div class="cmmnt-content">
+                <header><a href="javascript:void(0);" class="userlink">Lisa Egede</a> - <span class="pubdate">posted 6 days ago</span></header>
+                <p>I'm having the same issue. It says I need a password but I never received one.. </a></p>
+                <div class="comment-actions">
+                  <a href="#">Reply</a>
+                </div>
+              </div>
+            </ul>
+          </li>
+
+          <ul class="replies">
+            <li class="cmmnt">
+              <div class="avatar"><a href="javascript:void(0);"><img src="images/johnpp.jpg" width="55" height="55" alt="John avatar"></a></div>
+              <div class="cmmnt-content">
+                <header><a href="javascript:void(0);" class="userlink">John Alberse</a> - <span class="pubdate">posted 5 days ago</span></header>
+                <p>My name is John and I'm a CS major. I love tailwind!</p>
+                <div class="comment-actions">
+                  <a href="#">Reply</a>
+                </div>
+              </div>
+            </li>
+
+
+        <li class="cmmnt">
+          <div class="avatar"><a href="javascript:void(0);"><img src="images/lafonpp.png" width="55" height="55" alt="la fon avatar"></a></div>
+          <div class="cmmnt-content">
+            <header><a href="javascript:void(0);" class="userlink">La Fon</a> - <span class="pubdate">posted 11 hours ago</span></header>
+            <div class="comment-actions">
+              <a href="#">Reply</a>
+            </div><p>My name is La Fon. I am also a CS major! Tailwind rox</p>
+          </div>
+        </li>
+
+        <ul class="replies">
+          <li class="cmmnt">
+            <div class="avatar"><a href="javascript:void(0);"><img src="images/amypp.jpg" width="55" height="55" alt="Amy's Avatar"></a></div>
+            <div class="cmmnt-content">
+            <header><a href="javascript:void(0);" class="userlink">Amy Le</a> - <span class="pubdate">posted 2 hours ago</span></header>
+            <p> That helped alot. Thanks a ton!</p>
+            <div class="comment-actions">
+              <a href="#">Reply</a>
+            </div></div>
+          </li>
+
+
+      <!--- IDK how tf to this part -->
+      <div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl">
+        <!-- From -->
+        <div class="comment-form">
+          <form class="form" name="form" ng-submit="form.$valid && cmntCtrl.addComment()" novalidate>
+            <div class="form-row">
+              <textarea
+                        class="input"
+                        ng-model="cmntCtrl.comment.text"
+                        placeholder="Add comment..."
+                        required></textarea>
+            </div>
+
+            <div class="form-row">
+              <input type="submit" value="Add Comment">
+            </div>
+          </form>
+        </div>
+    </div>
+  </div>
+
+
+</body>
+</html>
