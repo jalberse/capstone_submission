@@ -64,25 +64,29 @@ function Comment(props) {
   );
 }
 
-// TODO this should be transformed into a class
-// so it can be stateful, and delete comments as
-// we respond to them (so they)
-function CommentList(props) {
-    const comments = props.comments;
-    const listItems = comments.map((cmt) =>
-        <li key={cmt.id}>
-            <Comment
-            date={cmt.date}
-            text={cmt.text}
-            author={cmt.author}
-            />
-        </li>
-    );
-    return (
-        <ul>
-            {listItems}
-        </ul>
-    );
+class CommentList extends React.Component {
+    constructor(props) {
+        super(props);
+        const comments = props.comments
+        const listItems = comments.map((cmt) =>
+            <li key={cmt.id}>
+                <Comment
+                date={cmt.date}
+                text={cmt.text}
+                author={cmt.author}
+                />
+            </li>
+        );
+        this.state = {listItems: listItems}
+    }
+    
+    render() {
+        return (
+            <ul>
+                {this.state.listItems}
+            </ul>
+        );
+    }
 }
 
 ReactDOM.render(
