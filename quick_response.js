@@ -89,7 +89,22 @@ class CommentList extends React.Component {
     }
 }
 
+class QuickResponseApp extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            comments: props.comments
+        }
+    }
+    
+    render () {
+        return (
+            <CommentList comments={this.state.comments} />
+        );
+    }
+}
+
 ReactDOM.render(
-  <CommentList comments={comments} />,
+  <QuickResponseApp comments={comments} />,
   document.getElementById('root')
 );
