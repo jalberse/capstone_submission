@@ -1,5 +1,5 @@
 import nltk
-from nltk.corpus import webtext_raw
+from nltk.corpus import webtext
 
 import numpy as np
 import tensorflow as tf
@@ -23,4 +23,19 @@ if __name__ == "__main__":
     '''
 
     nltk.download('webtext')
-    webtext_raw = webtext.raw()
+    text = webtext.raw()
+    print('corpus length:', len(text))
+
+    # Set up conversion between one-hot vectors and chars
+    chars = sorted(list(set(text)))
+    char_indices = dict((c, i) for i, c in enumerate(chars))
+    indices_char = dict((i, c) for i, c in enumerate(chars))
+
+    print(f'unique chars: {len(chars)}')
+
+    SEQUENCE_LENGTH = 40 # num of chars we input
+                        # may want to change - what about before user
+                        # has typed 40 chars? Do we use ngram model then?
+    step = 3 # gap between inputs
+    sentences = []
+    next_chars = []
