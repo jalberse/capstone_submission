@@ -22,9 +22,9 @@ if __name__ == "__main__":
     https://medium.com/@curiousily/making-a-predictive-keyboard-using-recurrent-neural-networks-tensorflow-for-hackers-part-v-3f238d824218
     '''
 
-    nltk.download('webtext')
-    text = webtext.raw().lower()
-
+    #TODO train on a larger, web-based corpus. For now, Jane Austen
+    nltk.download('gutenberg')
+    text = gutenberg.raw('austen-emma.txt')
     print('corpus length:', len(text))
 
     # Set up conversion between one-hot vectors and chars
@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     print(f'unique chars: {len(chars)}')
 
-    exit()
+    print(chars)
 
     # Extract training data from text
     SEQUENCE_LENGTH = 40 # num of chars we input
