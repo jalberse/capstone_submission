@@ -78,7 +78,7 @@ if __name__ == "__main__":
     optimizer = RMSprop(lr=0.01)
     model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
-    history = model.fit(x, y, validation_split=0.05, batch_size=128, epochs=20, verbose=2, shuffle=True).history
+    history = model.fit(x, y, validation_split=0.05, batch_size=128, epochs=20, shuffle=True).history
 
     # Save model
     model.save('keras_model.h5')
