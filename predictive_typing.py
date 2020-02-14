@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     #TODO train on a larger, web-based corpus. For now, Jane Austen
     nltk.download('gutenberg')
-    text = gutenberg.raw('austen-emma.txt')
+    text = gutenberg.raw('austen-emma.txt').lower()
     print('corpus length:', len(text))
 
     # Set up conversion between one-hot vectors and chars
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     optimizer = RMSprop(lr=0.01)
     model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
-    history = model.fit(x, y, validation_split=0.05, batch_size=128, epochs=20, shuffle=True).history
+    history = model.fit(x, y, validation_split=0.05, batch_size=128, epochs=20, verbose=2, shuffle=True).history
 
     # Save model
     model.save('keras_model.h5')
