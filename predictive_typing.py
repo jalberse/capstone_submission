@@ -23,6 +23,7 @@ if __name__ == "__main__":
     '''
 
     #TODO train on a larger, web-based corpus. For now, Jane Austen
+    #TODO only feasibly once have GPU support :(
     nltk.download('gutenberg')
     text = gutenberg.raw('austen-emma.txt').lower()
     print('corpus length:', len(text))
@@ -78,7 +79,7 @@ if __name__ == "__main__":
     optimizer = RMSprop(lr=0.01)
     model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
-    history = model.fit(x, y, validation_split=0.05, batch_size=128, epochs=20, verbose=2, shuffle=True).history
+    history = model.fit(x, y, validation_split=0.05, batch_size=128, epochs=20, verbose=1, shuffle=True).history
 
     # Save model
     model.save('keras_model.h5')
@@ -89,12 +90,13 @@ if __name__ == "__main__":
     history = pickle.load(open("history.p", "rb"))
 
     # Plot training
-    plt.plot(history['acc'])
-    plt.plot(history['val_acc'])
+    plt.plot(history['accuracy'])
+    plt.plot(history['val_accuracy'])
     plt.title('model accuracy')
     plt.ylabel('accuracy')
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
+    plt.show()
 
     plt.plot(history['loss'])
     plt.plot(history['val_loss'])
@@ -102,5 +104,6 @@ if __name__ == "__main__":
     plt.ylabel('loss')
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
+    plt.show()
 
     
