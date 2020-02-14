@@ -96,6 +96,15 @@ class QuickResponseApp extends React.Component {
             comments: props.comments
         }
     }
+
+    componentDidMount() {
+      fetch('http://127.0.0.1:5000/textresponse/')
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({ID: this.props.id})
+      })
+      .catch(console.log)
+    }
     
     render () {
         return (
