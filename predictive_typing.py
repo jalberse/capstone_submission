@@ -66,8 +66,6 @@ if __name__ == "__main__":
     print('(Number training examples, number unique chars)')
     print(y.shape)
 
-    print(chars)
-
     # Make and train the model
     # TODO: Hyperparamter testing
     model = Sequential()
@@ -78,7 +76,17 @@ if __name__ == "__main__":
     optimizer = RMSprop(lr=0.01)
     model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
-    history = model.fit(x, y, validation_split=0.05, batch_size=128, epochs=20, shuffle=True).history
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+    if gpus:
+        try:
+            for gpu in gpus:
+                print(f"allowing memory growth for {gpu}")
+                tf.config.experimental.set_memory_growth(gpu, True)
+
+        except RuntimeError as e:
+            print(e)
+
+    history = model.fit(x, y, validation_split=0.05, batch_size=128, epochs=20, verbose=1, shuffle=True).history
 
     # Save model
     model.save('keras_model.h5')
