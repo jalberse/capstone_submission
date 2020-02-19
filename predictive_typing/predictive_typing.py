@@ -195,6 +195,19 @@ if __name__ == "__main__":
 
     tp = text_predictor(text)
     history = tp.fit()
+    tp.save_model('test_model.h5')
+    tp.save_history('test_history.p')
+
+    # Test using model
+    for test in test_set:
+        seq = test[:40].lower() #should pass in only last 40 chars
+        print(seq)
+        print(tp.predict_completions(seq,n=5)) # can pass stop=['.'] e.g. to predict till sentences (liable to hang/break)
+        print()
+
+    # test loading model
+    new_model = text_predictor(text, model_filename='test_model.h5', history_filename='test_history.p')
+    print('succesfully loaded model')
 
     # Plot training
     plt.plot(history['accuracy'])
@@ -203,7 +216,7 @@ if __name__ == "__main__":
     plt.ylabel('accuracy')
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
-    plt.show()
+    plt.savefig('test_accuracy.png')
 
     plt.plot(history['loss'])
     plt.plot(history['val_loss'])
@@ -211,6 +224,6 @@ if __name__ == "__main__":
     plt.ylabel('loss')
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
-    plt.show()
+    plt.savefig('test_loss.png')
 
     
