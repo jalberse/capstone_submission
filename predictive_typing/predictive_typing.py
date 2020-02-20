@@ -193,10 +193,15 @@ if __name__ == "__main__":
     nltk.download('gutenberg')
     text = gutenberg.raw('austen-emma.txt').lower()
 
-    tp = text_predictor(text)
-    history = tp.fit()
-    tp.save_model('test_model.h5')
-    tp.save_history('test_history.p')
+    #tp = text_predictor(text)
+    #history = tp.fit()
+    #tp.save_model('test_model.h5')
+    #tp.save_history('test_history.p')
+
+    # test loading model
+    tp = text_predictor(text, model_filename='test_model.h5', history_filename='test_history.p')
+    #history = tp.history
+    print('succesfully loaded model')
 
     # Test using model
     for test in test_set:
@@ -205,10 +210,7 @@ if __name__ == "__main__":
         print(tp.predict_completions(seq,n=5)) # can pass stop=['.'] e.g. to predict till sentences (liable to hang/break)
         print()
 
-    # test loading model
-    new_model = text_predictor(text, model_filename='test_model.h5', history_filename='test_history.p')
-    print('succesfully loaded model')
-
+    '''
     # Plot training
     plt.plot(history['accuracy'])
     plt.plot(history['val_accuracy'])
@@ -225,5 +227,6 @@ if __name__ == "__main__":
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
     plt.savefig('test_loss.png')
+    '''
 
     
