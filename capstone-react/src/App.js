@@ -45,6 +45,13 @@ class App extends React.Component {
     .catch(console.log)
   }
   
+  // Make some function to get the text from the hard-coded comments
+  // and will return a list of possible responses
+  function getTextFromComment(props) {
+    
+  }
+
+
   render() {
 
     // Hard-coded comments
