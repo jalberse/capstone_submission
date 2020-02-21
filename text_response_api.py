@@ -35,6 +35,10 @@ from flask_restful import Api, Resource, reqparse
 from datetime import datetime
 from request_queue import CommentQueue
 from quick_response import TextAnalyzer
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)
 
 '''
 CommentAPI class for POSTing and GETting comment object.

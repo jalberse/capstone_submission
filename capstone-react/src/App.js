@@ -83,6 +83,23 @@ class App extends React.Component {
     
   // }
   generateResponse() {
+    console.log('postComment');
+    // const postData = JSON.stringify({"text": "asdw"});
+    const postData = new FormData()
+    postData.append("text", "polaris");
+    fetch('http://localhost:5000/textresponse/new', {
+      method: 'post',
+      mode: 'no-cors',
+      body: postData,
+      headers: {'Content-Type': 'application/json'}
+    })
+      // .then(res => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch(console.log);
+    
+
 
   }
 
@@ -105,9 +122,6 @@ class App extends React.Component {
         </div>
       </div>
     );
-    
-    // getTextFromComment(comment.text);
-
 
     return (
       <div className="container" style={{width: '500px'}}>
