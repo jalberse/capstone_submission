@@ -28,13 +28,44 @@ import './App.css';
 //   }
 // }
 
+// Hard-coded comments
+const comments = [
+  {
+      id:0,
+      date: new Date(),
+      text: 'This is a comment saying I like this!',
+      author: {
+        name: 'Amy',
+        avatarUrl: 'images/amypp.jpg',
+      }
+  },
+  {
+      id:1,
+      date: new Date(),
+      text: 'I loved it!',
+      author: {
+        name: 'Lisa',
+        avatarUrl: 'images/lisapp.jpg',
+      }
+  },
+  {
+      id:2,
+      date: new Date(),
+      text: 'I didnt like this product!',
+      author: {
+        name: 'John',
+        avatarUrl: 'images/johnpp.jpg',
+      }
+  },
+];
+
 class App extends React.Component {
   state = {
     todos: [],
     comments: []
   }
-
-  // Emoji Response API: 'http://localhost:5000/emojiresponse/0'
+  // Text Response API: 'http://localhost:5000/textresponse/new'
+  // Emoji Response API: 'http://localhost:5000/emojiresponse/new'
   // Sample API: 'http://jsonplaceholder.typicode.com/todos'
   componentDidMount() {
     fetch('http://jsonplaceholder.typicode.com/todos')
@@ -51,74 +82,44 @@ class App extends React.Component {
   // function getTextFromComment(props) {
     
   // }
+  generateResponse() {
 
+  }
 
   render() {
 
-    // Hard-coded comments
-    const comments = [
-      {
-          id:0,
-          date: new Date(),
-          text: 'This is a comment saying I like this!',
-          author: {
-            name: 'Amy',
-            avatarUrl: 'images/amypp.jpg',
-          }
-      },
-      {
-          id:1,
-          date: new Date(),
-          text: 'I loved it!',
-          author: {
-            name: 'Lisa',
-            avatarUrl: 'images/lisapp.jpg',
-          }
-      },
-      {
-          id:2,
-          date: new Date(),
-          text: 'I didnt like this product!',
-          author: {
-            name: 'John',
-            avatarUrl: 'images/johnpp.jpg',
-          }
-      },
-    ];
+
     const commentListItems = comments.map(
-      (comment) => <li key={comment.id}>{comment.text}</li>
-    );
-
-    return (
-      <div className="container">
-      <div className="col-xs-12">
-      <h1>My Todos</h1>
-
-      <div>
-      { commentListItems }
-      </div>
-
-      {this.state.todos.map((todo) => (
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">{todo.title}</h5>
-            <h6 className="card-subtitle mb-2 text-muted">
-            { todo.completed &&
-              <span>
-              Completed
-              </span>
-            }
-            { !todo.completed &&
-              <span>
-                Pending
-              </span>
-            }              
-            </h6>
+      (comment) => <div class="card mb-3" onClick={this.generateResponse}>
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img src={comment.author.avatarUrl} class="card-img" alt="..." />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              {/* <h5 class="card-title">{comment.text}</h5> */}
+              <p class="card-text">{comment.text}</p>
+              <p class="card-text"><small class="text-muted">Posted by {comment.author.name} on {comment.date.toDateString()}</small></p>
+            </div>
           </div>
         </div>
-      ))}
       </div>
-     </div>
+    );
+    
+    // getTextFromComment(comment.text);
+
+
+    return (
+      <div className="container" style={{width: '500px'}}>
+        <div className="container">
+          <div className="col-xs-12">
+            <h1>Quick Response</h1>
+              <div>
+              { commentListItems }
+              </div>
+          </div>
+        </div>
+      </div>
     );
   }
 
