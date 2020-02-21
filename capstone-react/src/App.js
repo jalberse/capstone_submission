@@ -30,7 +30,8 @@ import './App.css';
 
 class App extends React.Component {
   state = {
-    todos: []
+    todos: [],
+    comments: []
   }
 
   // Emoji Response API: 'http://localhost:5000/emojiresponse/0'
@@ -47,9 +48,9 @@ class App extends React.Component {
   
   // Make some function to get the text from the hard-coded comments
   // and will return a list of possible responses
-  function getTextFromComment(props) {
+  // function getTextFromComment(props) {
     
-  }
+  // }
 
 
   render() {
