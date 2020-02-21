@@ -11,6 +11,9 @@ from text_response_api import TextResponseAPI
 app = Flask(__name__)
 api = Api(app)
 
+app = Flask(__name__)
+CORS(app)
+
 # Gives app appropriate context
 with app.app_context():
     analyzer = TextAnalyzer()
