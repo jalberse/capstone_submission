@@ -144,87 +144,44 @@
 
 // export default App;
 import React from 'react';
-//import logo from './logo.svg';
 import './App.css';
-
-// Comment List component
-// class CommentList extends React.Component {
-//   constructor(props) {
-//       super(props);
-//       const comments = props.comments
-//       const listItems = comments.map((cmt) =>
-//           <li key={cmt.id}>
-//               <Comment
-//               date={cmt.date}
-//               text={cmt.text}
-//               author={cmt.author}
-//               />
-//           </li>
-//       );
-//       this.state = {listItems: listItems}
-//   }
-
-//   render() {
-//       return (
-//           <ul>
-//               {this.state.listItems}
-//           </ul>
-//       );
-//   }
-// }
+import Comment from './components/Comment';
 
 class App extends React.Component {
   state = {
     todos: [],
-    comments: []
   }
 
-  // Emoji Response API: 'http://localhost:5000/emojiresponse/0'
-  // Sample API: 'http://jsonplaceholder.typicode.com/todos'
-  componentDidMount() {
-    // fetch('http://jsonplaceholder.typicode.com/todos')
-    //   .then(res => res.json())
-    //   .then((data) => {
-    //     this.setState({ todos: data })
-    //     console.log(this.state.todos)
-    //   })
-    //   .catch(console.log)
-  }
+  // postMessage(message) {
+  //   const postData = new FormData()
 
-  // Make some function to get the text from the hard-coded comments
-  // and will return a list of possible responses
-  // function getTextFromComment(props) {
-
+  //   postData.append('text', message);
+  //   return fetch('http://localhost:5000/textresponse/new', {
+  //     method: 'post',
+  //     headers: {
+  //       'Sec-Fetch-Dest': 'document'
+  //     },
+  //     body: postData
+  //   })
   // }
 
-  postText(message) {
-    const postData = new FormData()
+  // getResponse() {
+  //   this.postMessage(this.state.text)
+  //   .then(resp => resp.json())
+  //   .then((data) => {
+  //     // console.log(data);
+  //     return data;
+  //   })
+  //   .catch(console.log)
+  // }
 
-    postData.append('text', message);
-    return fetch('http://localhost:5000/textresponse/new', {
-      method: 'post',
-      // mode: 'no-cors',
-      headers: {
-        'Sec-Fetch-Dest': 'document'
-      },
-      body: postData
-    })
-      .then(resp => resp.json())
-      .then((data) => {
-        // console.log(data);
-        return data;
-      })
-      .catch(console.log)
-  }
+  // postComment(message, post) {
 
-  postComment(message, post) {
+  //   post.response = [];
+  //   this.postText(message).then(data => {
+  //   });
 
-    post.response = [];
-    this.postText(message).then(data => {
-    });
-
-  }
-
+  // }
 
   render() {
 
@@ -278,64 +235,31 @@ class App extends React.Component {
       },
     ];
 
-    const commentListItems = comments.map((comment) => {
-      let reply = this.postText(comment.text);
-      reply.then((data) => {
-        comment.response = data.response;
-        console.log(comment.resp);
-      })
+    // const commentListItems = comments.map((comment) => {
+      
+    //   let reply = this.postMessage(comment.text);
+    //   reply.then((data) => {
+    //     //comment.response = data.response;
+    //     console.log(comment.resp);
+    //   })
 
-
-      const commentReplies = (
-        comment.replies.map((resp) => <p>resp</p>)
-      )
-      const commentResponses = (
-        comment.response.map((resp) => {
-
-          return (
-            <a href="#" onClick={() => this.postComment(resp, comment)} className="list-group-item list-group-item-action">{resp} {new Date().toLocaleTimeString()}</a>
-          )
-
-        })
-      )
-      // const commentResponses = <p></p>
-
-      return (
-        <div className="card mb-3">
-          <div className="row no-gutters">
-            <div className="col-md-2">
-              <img src={comment.author.avatarUrl} className="card-img" onClick={() => this.postText('testing')} />
-            </div>
-            <div className="col-md-8">
-              <div className="card-body">
-                {/* <h5 className="card-title">{comment.text}</h5> */}
-                <p className="card-text">{comment.text}</p>
-                <p className="card-text"><small className="text-muted">Posted by {comment.author.name} on {comment.date.toDateString()}</small></p>
-                {commentReplies}
-                <div className="list-group">
-                  {commentResponses}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    });
+    // });
 
     return (
       <div className="container" style={{ width: '800px' }}>
         <div className="col-xs-12">
           <h1>Posts</h1>
-
-          <div>
-            {commentListItems}
-          </div>
-
+            <div>
+              {comments.map((comment) => {
+                return (
+                  <Comment className="card-text" text={comment.text} author={comment.author} date={comment.date}/>
+                )
+              })}
+            </div>
         </div>
       </div >
     );
   }
-
 }
 
 export default App;

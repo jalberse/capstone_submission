@@ -37,8 +37,6 @@ from request_queue import CommentQueue
 from quick_response import TextAnalyzer
 from flask_cors import CORS
 
-
-
 '''
 CommentAPI class for POSTing and GETting comment object.
 '''
@@ -72,7 +70,7 @@ class TextResponseAPI(Resource):
         commentObject["response"] = analyzer.get_text_response(args["text"])
 
         # CORS
-        self.send_header("Access-Control-Allow-Origin", "*
+        #send_header("Access-Control-Allow-Origin", "*")
 
         # Returns new comment object
         # with code 201 (object created code)
