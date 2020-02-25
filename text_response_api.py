@@ -35,6 +35,7 @@ from flask_restful import Api, Resource, reqparse
 from datetime import datetime
 from request_queue import CommentQueue
 from quick_response import TextAnalyzer
+from flask_cors import CORS
 
 '''
 CommentAPI class for POSTing and GETting comment object.
@@ -68,6 +69,9 @@ class TextResponseAPI(Resource):
         # Processes text and sets response
         commentObject["response"] = analyzer.get_text_response(args["text"])
 
+        # CORS
+        #send_header("Access-Control-Allow-Origin", "*")
+
         # Returns new comment object
         # with code 201 (object created code)
         return commentObject, 201
@@ -91,6 +95,7 @@ class TextResponseAPI(Resource):
 if __name__ == '__main__':
     # Initiates flask app and creates api object for this app
     app = Flask(__name__)
+    CORS(app)
     api = Api(app)
 
     # Gives app appropriate context

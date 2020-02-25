@@ -23,3 +23,7 @@ TODO: Add instructions to make REST API available over the internet.
 
 ### Testing REST API
 TODO: Add the testing info from Insomnia either here or somewhere else easily accessible.
+
+### Starting the React App
+
+Simply run npm start in the capstone-react directory.

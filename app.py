@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import Api
+from flask_cors import CORS
 
 from quick_response import TextAnalyzer
 from request_queue import CommentQueue
@@ -9,7 +10,10 @@ from text_response_api import TextResponseAPI
 
 # Initiates flask app and creates api object for this app
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
+
+# app = Flask(__name__)
 
 # Gives app appropriate context
 with app.app_context():
