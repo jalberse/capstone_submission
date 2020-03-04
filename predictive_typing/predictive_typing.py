@@ -6,8 +6,6 @@ import os
 import numpy as np
 import tensorflow as tf
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1' # Disable GPU training - uncomment to allow GPU training. 
-
 from keras.models import Sequential, load_model
 from keras.layers import Dense, Activation, LSTM, Dropout, TimeDistributed
 from keras.layers.core import Dense, Activation, Dropout, RepeatVector
@@ -18,9 +16,10 @@ import sys
 import heapq
 from pylab import rcParams
 
-#TODO Test refactor
-#TODO train on a larger, web-based corpus. For now, Jane Austen
-    #TODO only feasibly once have GPU support :(
+# TODO train on a larger, web-based corpus. For now, Jane Austen
+# TODO pass responsibility of .lower() and [:40] to the model rather than caller
+# TODO fix error with unknown chars. defaultdict mapping to null vector required
+# TODO better way of loading models? Low priority
 
 class text_predictor:
     '''
@@ -54,13 +53,6 @@ class text_predictor:
                         If specified, loads training history in for plotting. File is pickled keras history object. 
         '''
 
-        physical_devices = tf.config.list_physical_devices('GPU') 
-        try: 
-          tf.config.experimental.set_memory_growth(physical_devices[0], True) 
-        except: 
-          # Invalid device or cannot modify virtual devices once initialized. 
-          pass 
-
         self.SEQUENCE_LENGTH = sequence_length
         self.text = text
         self.chars = sorted(list(set(self.text)))
@@ -79,7 +71,7 @@ class text_predictor:
         
         if history_filename:
             try:
-                self.history = pickle.load(open("history.p", "rb"))
+                self.history = pickle.load(open(history_filename, "rb"))
             except OSError:
                 print(f'Could not load file {history_filename}')
         else:
@@ -193,15 +185,16 @@ if __name__ == "__main__":
     nltk.download('gutenberg')
     text = gutenberg.raw('austen-emma.txt').lower()
 
+    # How to train a model
+
     #tp = text_predictor(text)
     #history = tp.fit()
-    #tp.save_model('test_model.h5')
-    #tp.save_history('test_history.p')
+    #tp.save_model('gpu-test_model.h5')
+    #tp.save_history('gpu-test_history.p')
 
     # test loading model
-    tp = text_predictor(text, model_filename='test_model.h5', history_filename='test_history.p')
-    #history = tp.history
-    print('succesfully loaded model')
+    tp = text_predictor(text, model_filename='gpu-test_model.h5', history_filename='gpu-test_history.p')
+    history = tp.history
 
     # Test using model
     for test in test_set:
@@ -210,7 +203,6 @@ if __name__ == "__main__":
         print(tp.predict_completions(seq,n=5)) # can pass stop=['.'] e.g. to predict till sentences (liable to hang/break)
         print()
 
-    '''
     # Plot training
     plt.plot(history['accuracy'])
     plt.plot(history['val_accuracy'])
@@ -218,7 +210,8 @@ if __name__ == "__main__":
     plt.ylabel('accuracy')
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
-    plt.savefig('test_accuracy.png')
+    plt.savefig('gpu-test_accuracy.png')
+    plt.clf()
 
     plt.plot(history['loss'])
     plt.plot(history['val_loss'])
@@ -226,7 +219,7 @@ if __name__ == "__main__":
     plt.ylabel('loss')
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
-    plt.savefig('test_loss.png')
-    '''
+    plt.savefig('gpu-test_loss.png')
+
 
     
