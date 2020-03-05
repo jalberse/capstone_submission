@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+<<<<<<< Updated upstream
+=======
+  background-color: #F9F9F9;
+>>>>>>> Stashed changes
 }
 
 .App-logo {
@@ -22,10 +26,25 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: black;
+  border: 15px;
+
 }
 
 .App-link {
   color: #61dafb;
+}
+
+.textstyle {
+	box-sizing: border-box;
+	border: 15px;
+	border-radius: 4px;
+	resize: none;
+	font-size: 16px;
+	line-height: 24px;
+	overflow: auto;
+	height: auto;
+	padding: 8px;
+	box-shadow: 0px 4px 10px -8px grey;
 }
 
 @keyframes App-logo-spin {

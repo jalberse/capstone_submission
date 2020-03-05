@@ -246,6 +246,7 @@ class App extends React.Component {
     // });
 
     return (
+<<<<<<< Updated upstream
       <div className="container" style={{ width: '800px' }}>
         <div className="col-xs-12">
           <h1>Posts</h1>
@@ -254,6 +255,15 @@ class App extends React.Component {
                 return (
                   <Comment className="card-text" text={comment.text} author={comment.author} date={comment.date}/>
                 )
+=======
+      <div className="container" style={{ width: '600px', border: '20px'}}>
+        <div className="col-xs-12">
+          <br></br><h1><center>Quick Reponse - Comments</center> </h1> <br></br>
+            <div>
+              {comments.map((comment) => {
+                return (
+                  <Comment className="card-text" text={comment.text} author={comment.author} date={comment.date}/>                )
+>>>>>>> Stashed changes
               })}
             </div>
         </div>
