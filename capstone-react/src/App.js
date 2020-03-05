@@ -18,7 +18,7 @@
 // //       );
 // //       this.state = {listItems: listItems}
 // //   }
-  
+
 // //   render() {
 // //       return (
 // //           <ul>
@@ -76,11 +76,11 @@
 //     })
 //     .catch(console.log)
 //   }
-  
+
 //   // Make some function to get the text from the hard-coded comments
 //   // and will return a list of possible responses
 //   // function getTextFromComment(props) {
-    
+
 //   // }
 //   generateResponse() {
 //     console.log('postComment');
@@ -100,8 +100,8 @@
 //         return data;
 //       })
 //       .catch(console.log);
-    
-//       // Get ID from 
+
+//       // Get ID from
 
 
 //   }
@@ -233,10 +233,25 @@ class App extends React.Component {
           // "Bad"
         ]
       },
+      {
+        id: 3,
+        date: new Date(),
+        text: 'This is so bad!',
+        author: {
+          name: 'La Fon',
+          avatarUrl: 'images/lafonpp.png',
+        },
+        replies: [],
+        response: [
+          // "Good",
+          // "Okay",
+          // "Bad"
+        ]
+      },
     ];
 
     // const commentListItems = comments.map((comment) => {
-      
+
     //   let reply = this.postMessage(comment.text);
     //   reply.then((data) => {
     //     //comment.response = data.response;
@@ -246,16 +261,7 @@ class App extends React.Component {
     // });
 
     return (
-<<<<<<< Updated upstream
-      <div className="container" style={{ width: '800px' }}>
-        <div className="col-xs-12">
-          <h1>Posts</h1>
-            <div>
-              {comments.map((comment) => {
-                return (
-                  <Comment className="card-text" text={comment.text} author={comment.author} date={comment.date}/>
-                )
-=======
+
       <div className="container" style={{ width: '600px', border: '20px'}}>
         <div className="col-xs-12">
           <br></br><h1><center>Quick Reponse - Comments</center> </h1> <br></br>
@@ -263,7 +269,6 @@ class App extends React.Component {
               {comments.map((comment) => {
                 return (
                   <Comment className="card-text" text={comment.text} author={comment.author} date={comment.date}/>                )
->>>>>>> Stashed changes
               })}
             </div>
         </div>
