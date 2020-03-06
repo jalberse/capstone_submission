@@ -1,7 +1,7 @@
 import React from 'react';
 
 class Comment extends React.Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -68,7 +68,7 @@ class Comment extends React.Component {
         return(
             <div className="card mb-3">
             <div className="row no-gutters">
-              <div className="col-md-2">
+              <div className="col-md-3">
                 <img src={this.props.author.avatarUrl} className="card-img"/>
               </div>
               <div className="col-md-8">
@@ -76,18 +76,19 @@ class Comment extends React.Component {
                   <div className="card-text">{this.props.text}</div>
                   <p className="card-text"><small className="text-muted">Posted by {this.props.author.name} on {this.props.date.toDateString()}</small></p>
                     {/* {this.state.toggleReplyButton} */}
-                    { (this.state.toggleReplyButton) ? (<a href="#" onClick={() => this.toggleReply() }>Reply</a>) : (<a></a>)}
-                    {this.state.response.map((resp) => {
+                    { (this.state.toggleReplyButton) ? (<a href="#" onClick=  {() => this.toggleReply() }>Reply</a>) : (<a></a>)}
+                    {
+
+                      this.state.response.map((resp) => {
                         return (
                             <button href="#" onClick={() => this.getReply(resp)} className="list-group-item list-group-item-action">
                                 {resp} {new Date().toLocaleTimeString()}
                             </button>
-                        )})
+                        )} )
+                      }
+                    {
+                      this.state.replies.map((resp) => <textarea class = "textstyle" cols="40" rows="3" >{resp}</textarea> )
                     }
-
-                    {this.state.replies.map((resp) => <p>{resp}</p>)}
-
-
                 </div>
               </div>
             </div>
