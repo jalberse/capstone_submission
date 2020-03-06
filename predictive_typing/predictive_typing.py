@@ -5,6 +5,7 @@ from nltk.corpus import gutenberg
 import os
 import numpy as np
 import tensorflow as tf
+from collections import defaultdict
 
 from keras.models import Sequential, load_model
 from keras.layers import Dense, Activation, LSTM, Dropout, TimeDistributed
@@ -17,8 +18,6 @@ import heapq
 from pylab import rcParams
 
 # TODO train on a larger, web-based corpus. For now, Jane Austen
-# TODO pass responsibility of .lower() and [:40] to the model rather than caller
-# TODO fix error with unknown chars. defaultdict mapping to null vector required
 # TODO better way of loading models? Low priority
 
 class text_predictor:
@@ -56,8 +55,10 @@ class text_predictor:
         self.SEQUENCE_LENGTH = sequence_length
         self.text = text
         self.chars = sorted(list(set(self.text)))
-        self.char_indices = dict((c, i) for i, c in enumerate(self.chars))
-        self.indices_char = dict((i, c) for i, c in enumerate(self.chars))
+        self.char_indices = defaultdict(lambda: 0, ((c, i+1) for i, c in enumerate(self.chars)))
+        print(self.char_indices)
+        self.indices_char = defaultdict(lambda: '', ((i+1, c) for i, c in enumerate(self.chars)))
+        print(self.indices_char)
 
         if model_filename:
             # Load model in if file provided
@@ -91,21 +92,21 @@ class text_predictor:
             ys.append(self.text[i + self.SEQUENCE_LENGTH])
 
         # Place examples in single data structure
-        x = np.zeros((len(xs), self.SEQUENCE_LENGTH, len(self.chars)), dtype=np.bool)
-        y = np.zeros((len(xs), len(self.chars)), dtype=np.bool)
+        x = np.zeros((len(xs), self.SEQUENCE_LENGTH, len(self.chars) + 1), dtype=np.bool)
+        y = np.zeros((len(xs), len(self.chars) + 1), dtype=np.bool)
 
         # For each example i...
         for i, sentence in enumerate(xs):
             # For the t'th char, encode a one-hot vector
             for t, char in enumerate(sentence):
                 x[i, t, self.char_indices[char]] = 1
-            # For the target char, encode the one-hot output
+            # For the target char, encode the one-hot output if the target is in char set
             y[i, self.char_indices[ys[i]]] = 1
 
         # TODO: Hyperparamter testing
         model = Sequential()
-        model.add(LSTM(128, input_shape=(self.SEQUENCE_LENGTH, len(self.chars))))
-        model.add(Dense(len(self.chars)))
+        model.add(LSTM(128, input_shape=(self.SEQUENCE_LENGTH, len(self.chars) + 1)))
+        model.add(Dense(len(self.chars) + 1))
         model.add(Activation('softmax'))
 
         optimizer = RMSprop(lr=0.01)
@@ -123,8 +124,13 @@ class text_predictor:
         pickle.dump(self.history, open(filename, "wb"))
 
     def _preprocess_text(self, text):
+        # Formats text
+        text = list(text[-self.SEQUENCE_LENGTH:].lower())
+        # Places empty string elements to pad front, in case text shorter that SEQUENCE_LENGTH
+        text = [''] * (self.SEQUENCE_LENGTH - len(text)) + text
+
         # Transforms text into sequence of one-hot vectors
-        x = np.zeros((1, self.SEQUENCE_LENGTH, len(self.chars)))
+        x = np.zeros((1, self.SEQUENCE_LENGTH, len(self.chars) + 1))
         for t, char in enumerate(text):
             x[0, t, self.char_indices[char]] = 1.
         return x
@@ -146,6 +152,7 @@ class text_predictor:
         '''
         orig_text = text
         completion = '' #tracks what chars we're appending
+        predicted_cnt = 0
         while True:
             # predict the next char
             x = self._preprocess_text(text)
@@ -156,11 +163,13 @@ class text_predictor:
             # next we predict last 40 included predicted char
             text = text[1:] + next_char
             completion += next_char
-
-            if next_char in stop:
+            predicted_cnt += 1
+            
+            # TODO is there a better way to stop if we are looping w/out hitting a stop char?
+            if next_char in stop or predicted_cnt >= 30: 
                 return completion
 
-    def predict_completions(self, text, stop=[' '], n=3):
+    def predict_completions(self, text, stop=[' ','\n'], n=3):
         '''
         Returns n possible autocompletes
         '''
@@ -176,10 +185,12 @@ if __name__ == "__main__":
 
     # Test predictive capability
     test_set = [
-        "There is nothing I would not do for those who are really my friends. I have no notion of loving people by halves, it is not my nature.",
-        "There is a stubbornness about me that never can bear to be frightened at the will of others. My courage always rises at every attempt to intimidate me.",
-        "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
-        "Vanity and pride are different things, though the words are often used synonymously. A person may be proud without being vain. Pride relates more to our opinion of ourselves, vanity to what we would have others think of us.",
+        "There is nothing I would not do for those who are really my friends. ",
+        "There is a stubbornness abo",
+        "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a w",
+        "Vanity and pride are differ",
+        "hi",
+        "#",
     ]
     
     nltk.download('gutenberg')
@@ -198,10 +209,8 @@ if __name__ == "__main__":
 
     # Test using model
     for test in test_set:
-        seq = test[:40].lower() #should pass in only last 40 chars
-        print(seq)
-        print(tp.predict_completions(seq,n=5)) # can pass stop=['.'] e.g. to predict till sentences (liable to hang/break)
-        print()
+        print(test)
+        print(tp.predict_completions(test,n=5)) # can pass stop=['.'] e.g. to predict till sentences (liable to hang/break)
 
     # Plot training
     plt.plot(history['accuracy'])

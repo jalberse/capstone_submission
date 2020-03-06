@@ -61,21 +61,6 @@ class PredictiveTextAPI(Resource):
         args = parser.parse_args()
         text = args["text"]
 
-        # Formats text
-        text = text.lower()
-        if len(text) < textPredictor.SEQUENCE_LENGTH:
-            # Text needs padding
-
-            # Pads sequence of characters with spaces if it is
-            # shorter than SEQUENCE_LENGTH
-            text = (textPredictor.SEQUENCE_LENGTH - len(text)) * " " + text
-        else:
-            # Text needs truncating
-
-            # Grads last SEQUENCE_LENGTH worth of characters truncating
-            # any extra at the start.
-            text = text[len(text) - textPredictor.SEQUENCE_LENGTH:len(text)]
-
         # Makes prediction
         textResult = tp.predict_completions(text,n=3)
 
