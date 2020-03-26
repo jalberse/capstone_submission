@@ -47,6 +47,11 @@ if __name__ == '__main__':
         "Hi Thomas, this is correct but this he",
         "What seems to be the probl",
         "Hi! I appreciate the fix, can y",
+        "wh",
+        "w",
+        "",
+        "#",
+        "hel",
     ]
 
     d = enchant.Dict("en_US")
