@@ -74,11 +74,11 @@ if __name__ == '__main__':
     api = Api(app)
 
     # Initializes text predictor for API context
-    nltk.download('gutenberg')
-    text = gutenberg.raw('austen-emma.txt').lower()
+    with open('predictive_typing/twcs.txt', 'r') as f:
+        text = f.read()
 
     # Loads model for predictive typing
-    tp =  text_predictor(text, model_filename=join(os.getcwd(), 'predictive_typing', 'test_model.h5'), history_filename=join(os.getcwd(), 'predictive_typing', 'test_history.p'))
+    tp =  text_predictor(text, model_filename=join(os.getcwd(), 'predictive_typing', '/results/twcs.h5'), history_filename=join(os.getcwd(), 'predictive_typing', '/results/twcs.p'))
 
     # Gives app appropriate context
     with app.app_context():

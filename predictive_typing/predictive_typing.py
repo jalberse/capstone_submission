@@ -68,7 +68,7 @@ class text_predictor:
                 print(f'Could not load file {model_filename}')
         else:
             # Else prepare model for training
-            self.model, self.x, self.y = self._prepare_model()            
+            self.model, self.x, self.y = self._prepare_model()
         
         if history_filename:
             try:
@@ -87,7 +87,7 @@ class text_predictor:
         step = 3 # gap between inputs
         xs = [] # RNN input. Last SEQUENCE_LENGTH characters
         ys = [] # RNN target. The 41st char
-        for i in range(0, len(text) - self.SEQUENCE_LENGTH, step):
+        for i in range(0, len(self.text) - self.SEQUENCE_LENGTH, step):
             xs.append(self.text[i: i + self.SEQUENCE_LENGTH])
             ys.append(self.text[i + self.SEQUENCE_LENGTH])
 
@@ -103,7 +103,6 @@ class text_predictor:
             # For the target char, encode the one-hot output if the target is in char set
             y[i, self.char_indices[ys[i]]] = 1
 
-        # TODO: Hyperparamter testing
         model = Sequential()
         model.add(LSTM(128, input_shape=(self.SEQUENCE_LENGTH, len(self.chars) + 1)))
         model.add(Dense(len(self.chars) + 1))
@@ -182,10 +181,6 @@ if __name__ == "__main__":
     '''
     Example for how to use the model
     '''
-
-    # TODO Use customer support dataset (will require some cleaning)
-    # TODO Hyperparameter tuning
-    # TODO example on how to verify output in
 
     # Test predictive capability
     test_set = [
