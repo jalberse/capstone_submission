@@ -183,6 +183,10 @@ if __name__ == "__main__":
     Example for how to use the model
     '''
 
+    # TODO Use customer support dataset (will require some cleaning)
+    # TODO Hyperparameter tuning
+    # TODO example on how to verify output in
+
     # Test predictive capability
     test_set = [
         "There is nothing I would not do for those who are really my friends. ",
