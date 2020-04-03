@@ -41,6 +41,7 @@ from flask_restful import Api, Resource, reqparse
 import nltk
 from predictive_typing.predictive_typing import text_predictor
 from nltk.corpus import gutenberg
+import enchant
 
 import os
 from os.path import join
@@ -62,11 +63,25 @@ class PredictiveTextAPI(Resource):
         text = args["text"]
 
         # Makes prediction
-        textResult = tp.predict_completions(text,n=3)
+        preds = tp.predict_completions(test,n=5)
+        results = []
+        for pred in preds:
+            full_text = text + pred
+            last_word = full_text.split()[-1]
+            if pred[0] == ' ':
+                # If we are predicting the next word,
+                # we don't want to be able to just go
+                # "y consent" instead of "you" or "yet"
+                # - the second the last word must also be valid
+                second_last_word = full_text.split()[-2]
+                if d.check(last_word) and d.check(second_last_word):
+                    results.append(pred)
+            elif d.check(last_word):
+                results.append(pred)
 
         # Returns predicted string of characters
         # with code 200 (ok code)
-        return textResult, 200
+        return results, 200
 
 if __name__ == '__main__':
     # Initiates flask app and creates api object for this app
@@ -84,6 +99,8 @@ if __name__ == '__main__':
     with app.app_context():
         textPredictor = tp
 
+    d = enchant.Dict("en_US")
+    
     # Configures app for running
     api.add_resource(PredictiveTextAPI, "/predicttext")
 
