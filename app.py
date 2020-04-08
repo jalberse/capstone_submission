@@ -27,4 +27,4 @@ api.add_resource(TextResponseAPI, "/textresponse/<string:commentID>")
 api.add_resource(EmojiResponseAPI, "/emojiresponse/<string:commentID>")
 
 # Sets debug mode to true for development purposes
-app.run(debug=True)
+app.run(debug=True,port=80)
