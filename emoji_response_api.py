@@ -41,6 +41,9 @@ from quick_response import TextAnalyzer
 CommentAPI class for POSTing and GETting comment object.
 '''
 class EmojiResponseAPI(Resource):
+    def __init__(self):
+        self.analyzer = TextAnalyzer()
+        
     '''
     POST method for creating new comment instance.
     '''
@@ -51,7 +54,8 @@ class EmojiResponseAPI(Resource):
         args = parser.parse_args()
 
         # Generate new comment ID
-        newID = commentQueue.newID()
+        # newID = commentQueue.newID()
+        newID = 1
 
         # Fills out new comment object
         commentObject = {
@@ -64,10 +68,10 @@ class EmojiResponseAPI(Resource):
         }
 
         # Adds comment to queue for processing
-        commentQueue.addComment(commentObject)
+        #commentQueue.addComment(commentObject)
 
         # Processes text and sets response
-        commentObject["response"] = analyzer.get_emoji_response(args["text"])
+        commentObject["response"] = self.analyzer.get_emoji_response(args["text"])
 
         # Returns new comment object
         # with code 201 (object created code)

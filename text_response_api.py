@@ -41,6 +41,9 @@ from flask_cors import CORS
 CommentAPI class for POSTing and GETting comment object.
 '''
 class TextResponseAPI(Resource):
+    def __init__(self):
+        self.analyzer = TextAnalyzer()
+
     '''
     POST method for creating new comment instance.
     '''
@@ -50,12 +53,9 @@ class TextResponseAPI(Resource):
         parser.add_argument("text")
         args = parser.parse_args()
 
-        # Generate new comment ID
-        newID = commentQueue.newID()
-
         # Fills out new comment object
         commentObject = {
-            "ID": newID,
+            "ID": 1,
             "created": str(datetime.utcnow().isoformat()),
             "lastInteraction": str(datetime.utcnow().isoformat()),
             "status": "unprocessed",
@@ -64,10 +64,10 @@ class TextResponseAPI(Resource):
         }
 
         # Adds comment to queue for processing
-        commentQueue.addComment(commentObject)
+        #commentQueue.addComment(commentObject)
 
         # Processes text and sets response
-        commentObject["response"] = analyzer.get_text_response(args["text"])
+        commentObject["response"] = self.analyzer.get_text_response(args["text"])
 
         # CORS
         #send_header("Access-Control-Allow-Origin", "*")
@@ -75,7 +75,7 @@ class TextResponseAPI(Resource):
         # Returns new comment object
         # with code 201 (object created code)
         return commentObject, 201
-
+        
     '''
     GET method for retrieving the results on a given comment ID.
     Returns 404 response if ID can't be found.

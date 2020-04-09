@@ -1,2 +1,2 @@
 runtime: python37
-entrypoint: python text_response_api.py
+entrypoint: python main.py
