@@ -107,4 +107,4 @@ if __name__ == '__main__':
     api.add_resource(TextResponseAPI, "/textresponse/<string:commentID>")
 
     # Sets debug mode to true for development purposes
-    app.run(debug=True)
+    app.run(debug=True,host='0.0.0.0',port=8080)
